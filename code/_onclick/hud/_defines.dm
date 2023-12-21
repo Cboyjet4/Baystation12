@@ -131,4 +131,3 @@
 #define ui_pai_shell "NORTH,WEST+2:6"
 #define ui_pai_light "NORTH,WEST+3:6"
 #define ui_pai_rest "NORTH,WEST+4:6"
-

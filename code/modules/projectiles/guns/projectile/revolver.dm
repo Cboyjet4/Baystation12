@@ -8,7 +8,7 @@
 	origin_tech = list(TECH_COMBAT = 2, TECH_MATERIAL = 2)
 	handle_casings = CYCLE_CASINGS
 	max_shells = 6
-	fire_delay = 12 //Revolvers are naturally slower-firing
+	fire_delay = 4 //Revolvers are naturally slower-firing
 	ammo_type = /obj/item/ammo_casing/pistol/magnum
 	mag_insert_sound = 'sound/weapons/guns/interaction/rev_magin.ogg'
 	mag_remove_sound = 'sound/weapons/guns/interaction/rev_magout.ogg'
@@ -16,12 +16,24 @@
 	accuracy_power = 8
 	one_hand_penalty = 2
 	bulk = 3
+	var/closed = TRUE
+	var/opened = null
+
 
 /obj/item/gun/projectile/revolver/AltClick()
+		toggle_cylinder()
+		return
+		return ..()
+
+
+/obj/item/gun/projectile/revolver/verb/toggle_cylinder()
 	if(CanPhysicallyInteract(usr))
-		spin_cylinder()
-		return TRUE
-	return ..()
+		opened = !opened
+		playsound(src.loc, 'sound/weapons/revolver_spin.ogg', 100, 1)
+		if (opened)
+			closed = TRUE
+		else
+			to_chat(usr, "You [opened? "open" : "close"] \the [src]")
 
 /obj/item/gun/projectile/revolver/verb/spin_cylinder()
 	set name = "Spin cylinder"
@@ -37,10 +49,14 @@
 		chamber_offset = rand(0,max_shells - length(loaded))
 
 /obj/item/gun/projectile/revolver/consume_next_projectile()
+	if (opened)
+		to_chat(usr, "You need to close \the [src] first!")
+		return
 	if(chamber_offset)
 		chamber_offset--
 		return
 	return ..()
+
 
 /obj/item/gun/projectile/revolver/load_ammo(obj/item/A, mob/user)
 	chamber_offset = 0

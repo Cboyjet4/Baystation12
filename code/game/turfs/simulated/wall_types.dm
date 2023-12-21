@@ -1,9 +1,9 @@
 //Commonly used
 /turf/simulated/wall/prepainted
-	paint_color = COLOR_GUNMETAL
+	paint_color = COLOR_GRAY20
 
 /turf/simulated/wall/r_wall/prepainted
-	paint_color = COLOR_GUNMETAL
+	paint_color = COLOR_GRAY20
 
 /turf/simulated/wall/r_wall
 	icon_state = "r_generic"
@@ -20,9 +20,9 @@
 	color = COLOR_GREEN_GRAY
 
 /turf/simulated/wall/prepainted
-	paint_color = COLOR_WALL_GUNMETAL
+	paint_color = COLOR_GRAY20
 /turf/simulated/wall/r_wall/prepainted
-	paint_color = COLOR_WALL_GUNMETAL
+	paint_color = COLOR_GRAY20
 
 /turf/simulated/wall/r_wall/hull/Initialize()
 	. = ..()
