@@ -16,9 +16,7 @@
 	accuracy_power = 8
 	one_hand_penalty = 2
 	bulk = 3
-	var/closed = TRUE
 	var/opened = null
-
 
 /obj/item/gun/projectile/revolver/AltClick()
 		toggle_cylinder()
@@ -29,11 +27,9 @@
 /obj/item/gun/projectile/revolver/verb/toggle_cylinder()
 	if(CanPhysicallyInteract(usr))
 		opened = !opened
+		to_chat(usr, "You [opened? "open" : "close"] \the [src]")
 		playsound(src.loc, 'sound/weapons/revolver_spin.ogg', 100, 1)
-		if (opened)
-			closed = TRUE
-		else
-			to_chat(usr, "You [opened? "open" : "close"] \the [src]")
+
 
 /obj/item/gun/projectile/revolver/verb/spin_cylinder()
 	set name = "Spin cylinder"
@@ -61,7 +57,6 @@
 /obj/item/gun/projectile/revolver/load_ammo(obj/item/A, mob/user)
 	chamber_offset = 0
 	return ..()
-
 /obj/item/gun/projectile/revolver/medium
 	name = "revolver"
 	icon_state = "medium"
